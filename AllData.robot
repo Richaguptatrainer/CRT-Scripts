@@ -15,36 +15,34 @@ Entering A Lead With Data
     [tags]                    Lead
     Home
     LaunchApp                 Sales
-    LaunchApp                 Sales
-    LaunchApp                 Sales
 
-    ClickText                 Leads
-    VerifyText                Recently Viewed             timeout=120s
-    ClickText                 New
-    VerifyText                Lead Information
-    UseModal                  On                          # Only find fields from open modal dialog
+    ClickText       Leads
+    VerifyText      Change Owner
+    ClickText       New                         partial_match=False
+    VerifyText      Lead Information
+    UseModal        On                          # Only find fields from open mod                        # Only find fields from open modal dialog
+   TypeText        First Name                  ${First Name}
+    TypeText        Last Name                   ${Last Name}
+    Picklist        Lead Status                 Open - Not Contacted
+    TypeText        Phone                       ${Phone}                    First Name
+    TypeText        Company                     ${Company}                  Last Name
+    TypeText        Website                     ${Website}
+    Picklist        Lead Source                 Web
+    ClickText       Save                        partial_match=False
+    UseModal        Off
+    Sleep           1
+    ClickText       Details
+    VerifyField     Phone                       ${phone}
+    VerifyField     Company                     ${Company}
+    VerifyField     Website                     ${Website}
 
-    TypeText                  First Name                  ${First Name}
-    TypeText                  Last Name                   ${Last Name}
-    Picklist                  Lead Status                 Working
-    TypeText                  Phone                       ${Phone}                    First Name
-    TypeText                  Company                     ${Company}                  Last Name
-    TypeText                  Website                     ${Website}
-
-    ClickText                 Lead Source
-    ClickText                 Advertisement
-    ClickText                 Save                        partial_match=False
-    UseModal                  Off
-    Sleep                     1
-
-    #Delete the lead to clean up data
-    LaunchApp                 Sales
-    ClickText                 Leads
-    VerifyText                Recently Viewed             timeout=120s
-
-    ClickText                 ${first Name}
-    ClickText                 Delete
-    ClickText                 Delete
-    VerifyText                Recently Viewed
-    VerifyNoText              ${First Name}
-    VerifyNoText              ${Last Name}
+# delete lead
+     LaunchApp       Sales
+    ClickText       Leads
+    ${fullName}=    Catenate                    ${First Name}               ${Last Name}
+    ClickText       ${fullName}
+    ClickText       Show more actions
+    ClickText       Delete
+    UseModal        On
+    ClickText       Delete
+    UseModal        Off
